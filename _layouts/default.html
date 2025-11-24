@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+                <span id="theme-icon">🌙</span>
+            </button>
+            <a href="{{ '/' | relative_url }}">
+                <img src="{{ '/assets/images/captcore_11zon.png' | relative_url }}" alt="PRIZM Logo" class="header-logo">
+            </a>
+            <h1><a href="{{ '/' | relative_url }}" style="color: white; text-decoration: none;">{{ site.title }}</a></h1>
+            <p>{{ site.description }}</p>
+            <nav class="main-nav">
+                <a href="{{ '/' | relative_url }}">Home</a>
+                <a href="{{ '/blog/' | relative_url }}">Blog</a>
+                <a href="{{ '/projects/' | relative_url }}">Projects</a>
+            </nav>
+        </header>
+
+        <main>
+            {{ content }}
+        </main>
+
+        <footer>
+            <p>&copy; 2025 {{ site.title }}. Built with ❤️ and hosted on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a></p>
+        </footer>
+    </div>
+
+    <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
+</body>
+</html>

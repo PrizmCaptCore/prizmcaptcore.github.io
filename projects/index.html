@@ -1,0 +1,33 @@
+---
+layout: default
+title: Projects
+---
+
+<div class="section">
+    <h2>All Projects</h2>
+
+    {% assign sorted_projects = site.projects | sort: 'order' %}
+    {% for project in sorted_projects %}
+    <div class="project-card">
+        <h3><a href="{{ project.url | relative_url }}" style="color: var(--text-primary); text-decoration: none;">{{ project.title }}</a></h3>
+        {% if project.tags %}
+        <div class="tags">
+            {% for tag in project.tags %}
+            <span class="tag">{{ tag }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% if project.image %}
+        <img src="{{ project.image | relative_url }}" alt="{{ project.title }}" class="project-image">
+        {% endif %}
+        <p>{{ project.content }}</p>
+        {% if project.tech_stack %}
+        <p><strong>Tech Stack:</strong> {{ project.tech_stack }}</p>
+        {% endif %}
+        {% if project.status %}
+        <p><strong>Status:</strong> {{ project.status }}</p>
+        {% endif %}
+        <a href="{{ project.url | relative_url }}" class="btn">View Details →</a>
+    </div>
+    {% endfor %}
+</div>
