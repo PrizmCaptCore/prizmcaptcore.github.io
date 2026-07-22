@@ -1,8 +1,8 @@
 # Site settings
-title: PRIZM
-description: Personal Projects & Open Source Contributions
-author: PRIZM
-email: your-email@example.com
+title: 김조민 (Jomin Kim)
+description: AI 제품 · 백엔드 · 인프라 엔지니어 | AI Product · Backend · Infrastructure Engineer
+author: 김조민 (Jomin Kim)
+email: jomin96@gmail.com
 baseurl: ""
 url: "https://prizmcaptcore.github.io"
 

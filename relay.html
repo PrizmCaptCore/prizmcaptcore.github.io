@@ -1,0 +1,385 @@
+---
+layout: default
+title: "Relay — AI 회의 인텔리전스 (케이스 스터디)"
+permalink: /relay/
+---
+
+<style>
+  .rl {
+    --rl-accent: #5a6fd6;
+    --rl-accent-2: #764ba2;
+    --rl-serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    --rl-mono: "SFMono-Regular", ui-monospace, "JetBrains Mono", Consolas, monospace;
+    --rl-good: #2f9e6e;
+    --rl-warn: #c08a2e;
+  }
+  :root[data-theme="dark"] .rl { --rl-accent: #8fa0ea; --rl-good: #46c68c; --rl-warn: #e0b155; }
+
+  .rl { color: var(--text-primary); }
+  .rl a { color: var(--rl-accent); }
+  .rl .rl-back {
+    display: inline-block; font-family: var(--rl-mono); font-size: .82rem;
+    text-decoration: none; margin: 0 0 1.25rem; opacity: .85;
+  }
+  .rl .rl-back:hover { opacity: 1; }
+
+  /* hero */
+  .rl-hero {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: clamp(1.5rem, 4vw, 2.75rem);
+    box-shadow: 0 2px 10px var(--shadow);
+    position: relative; overflow: hidden;
+    margin-bottom: 2rem;
+  }
+  .rl-hero::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(120% 90% at 88% -20%, color-mix(in srgb, var(--rl-accent) 16%, transparent), transparent 60%);
+    pointer-events: none;
+  }
+  .rl-eyebrow {
+    font-family: var(--rl-mono); font-size: .72rem; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--rl-accent); font-weight: 700;
+  }
+  .rl-title {
+    font-family: var(--rl-serif); font-weight: 600;
+    font-size: clamp(1.7rem, 4.4vw, 2.7rem); line-height: 1.12;
+    letter-spacing: -.01em; margin: .7rem 0 0; color: var(--text-primary);
+    text-wrap: balance;
+  }
+  .rl-title em { color: var(--rl-accent); font-style: italic; }
+  .rl-lede { margin: 1rem 0 0; color: var(--text-secondary); font-size: 1.02rem; max-width: 58ch; }
+
+  .rl-wave-wrap { margin-top: 1.75rem; position: relative; }
+  #rl-wave { display: block; width: 100%; height: 78px; }
+  .rl-wave-cap {
+    display: flex; justify-content: space-between; gap: .5rem; flex-wrap: wrap;
+    font-family: var(--rl-mono); font-size: .66rem; color: var(--text-secondary);
+    letter-spacing: .04em; border-top: 1px solid var(--border-color);
+    margin-top: .4rem; padding-top: .55rem; opacity: .85;
+  }
+  .rl-chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.5rem; position: relative; }
+  .rl-chip {
+    font-family: var(--rl-mono); font-size: .72rem; color: var(--text-primary);
+    background: var(--bg-card); border: 1px solid var(--border-color);
+    border-radius: 999px; padding: .35rem .7rem;
+  }
+  .rl-chip b { color: var(--rl-accent); }
+
+  /* sections */
+  .rl-sec { margin: 2.25rem 0; }
+  .rl-sec > .rl-eyebrow { display: block; margin-bottom: .35rem; }
+  .rl-h2 {
+    font-family: var(--rl-serif); font-weight: 600; color: var(--text-primary);
+    font-size: clamp(1.3rem, 3vw, 1.8rem); letter-spacing: -.01em; margin: 0 0 1rem;
+    text-wrap: balance;
+  }
+  .rl-p { color: var(--text-secondary); max-width: 66ch; margin: 0 0 .8rem; }
+  .rl-p strong { color: var(--text-primary); }
+
+  /* architecture map */
+  .rl-arch { display: grid; gap: .7rem; }
+  .rl-row { display: grid; gap: .7rem; }
+  .rl-c2 { grid-template-columns: 1fr 1fr; }
+  .rl-c3 { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 640px) { .rl-c2, .rl-c3 { grid-template-columns: 1fr; } }
+  .rl-node {
+    background: var(--bg-card); border: 1px solid var(--border-color);
+    border-radius: 10px; padding: .85rem 1rem;
+  }
+  .rl-node.dash { border-style: dashed; }
+  .rl-node .t { font-family: var(--rl-mono); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--rl-accent); }
+  .rl-node h4 { margin: .25rem 0 .2rem; font-size: .95rem; color: var(--text-primary); }
+  .rl-node p { margin: 0; font-size: .8rem; color: var(--text-secondary); }
+  .rl-flow { text-align: center; font-family: var(--rl-mono); font-size: .64rem; color: var(--text-secondary); letter-spacing: .1em; text-transform: uppercase; opacity: .8; }
+  .rl-flow::before { content: "↓"; display: block; font-size: 1rem; opacity: .5; }
+
+  /* subsystem cards */
+  .rl-cards { display: grid; gap: 1.1rem; }
+  .rl-card {
+    background: var(--bg-secondary); border: 1px solid var(--border-color);
+    border-left: 4px solid var(--rl-accent); border-radius: 10px;
+    padding: clamp(1.1rem, 3vw, 1.6rem); box-shadow: 0 2px 10px var(--shadow);
+  }
+  .rl-card-top { display: flex; align-items: baseline; gap: .6rem; flex-wrap: wrap; }
+  .rl-idx { font-family: var(--rl-mono); font-size: .8rem; color: var(--text-secondary); }
+  .rl-card h3 { font-family: var(--rl-serif); font-weight: 600; font-size: 1.25rem; color: var(--text-primary); margin: 0; }
+  .rl-role { font-family: var(--rl-mono); font-size: .68rem; letter-spacing: .03em; color: var(--rl-accent); margin: .3rem 0 .9rem; }
+  .rl-card p { color: var(--text-secondary); margin: 0 0 .7rem; }
+  .rl-dec { list-style: none; padding: 0; margin: .3rem 0 0; display: grid; gap: .55rem; }
+  .rl-dec li { position: relative; padding-left: 1.2rem; color: var(--text-secondary); font-size: .9rem; }
+  .rl-dec li::before { content: ""; position: absolute; left: 0; top: .45rem; width: 7px; height: 7px; border: 1.5px solid var(--rl-accent); border-radius: 2px; transform: rotate(45deg); }
+  .rl-dec li b { color: var(--text-primary); }
+  .rl-stack { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .95rem; }
+  .rl-pill { font-family: var(--rl-mono); font-size: .68rem; color: var(--text-secondary); border: 1px solid var(--border-color); border-radius: 5px; padding: .2rem .5rem; }
+
+  /* topo */
+  .rl-topo { display: grid; grid-template-columns: repeat(3, 1fr); gap: .55rem; margin: .8rem 0; }
+  @media (max-width: 640px) { .rl-topo { grid-template-columns: 1fr; } }
+  .rl-svc { border: 1px solid var(--border-color); border-radius: 8px; padding: .7rem .8rem; background: var(--bg-card); }
+  .rl-svc .n { font-size: .86rem; font-weight: 700; color: var(--text-primary); }
+  .rl-svc .d { font-size: .74rem; color: var(--text-secondary); margin-top: .2rem; }
+  .rl-state { display: inline-flex; align-items: center; gap: .35rem; font-family: var(--rl-mono); font-size: .64rem; margin-top: .55rem; padding: .15rem .5rem; border-radius: 999px; }
+  .rl-state::before { content: ""; width: 6px; height: 6px; border-radius: 50%; }
+  .rl-state.on { color: var(--rl-good); background: color-mix(in srgb, var(--rl-good) 14%, transparent); }
+  .rl-state.on::before { background: var(--rl-good); }
+  .rl-state.zero { color: var(--rl-warn); background: color-mix(in srgb, var(--rl-warn) 16%, transparent); }
+  .rl-state.zero::before { background: var(--rl-warn); }
+
+  /* themes */
+  .rl-themes { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 640px) { .rl-themes { grid-template-columns: 1fr; } }
+  .rl-theme { border-left: 2px solid var(--rl-accent); padding: .1rem 0 .1rem .9rem; }
+  .rl-theme h4 { margin: 0 0 .3rem; font-size: .98rem; color: var(--text-primary); }
+  .rl-theme p { margin: 0; font-size: .82rem; color: var(--text-secondary); }
+
+  .rl-note {
+    font-size: .82rem; color: var(--text-secondary); background: var(--bg-card);
+    border: 1px solid var(--border-color); border-left: 3px solid var(--rl-accent);
+    border-radius: 8px; padding: 1rem 1.1rem; margin: 2rem 0 1.5rem;
+  }
+  .rl-note b { color: var(--text-primary); }
+
+  .rl-reveal { opacity: 0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease; }
+  .rl-reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .rl-reveal { opacity: 1; transform: none; transition: none; } }
+</style>
+
+<div class="rl">
+  <a class="rl-back" href="{{ '/' | relative_url }}">← 홈으로</a>
+
+  <header class="rl-hero">
+    <span class="rl-eyebrow">Case Study · AI Meeting Intelligence</span>
+    <h1 class="rl-title">온디바이스 음성부터 <em>비용 튜닝된 GPU 플릿</em>까지 — AI 회의 인텔리전스 제품을 혼자서 풀스택으로.</h1>
+    <p class="rl-lede">
+      회의를 실시간 전사하고, 요약·결정·액션을 뽑아 검색 가능한 지식으로 만드는 제품
+      <strong>Relay</strong>(제품명 익명화)의 <strong>전 계층</strong>을 직접 설계·구현했습니다 —
+      데스크톱 실시간 STT, GPU 추론 플릿, 커스텀 한국어 ASR, 웹 플랫폼, 지식그래프 엔진.
+    </p>
+
+    <div class="rl-wave-wrap">
+      <canvas id="rl-wave" aria-hidden="true"></canvas>
+      <div class="rl-wave-cap">
+        <span>온디바이스 CTC · partial 미리보기</span>
+        <span>VAD · 노이즈 억제 · 채널 분리</span>
+        <span>클라우드 모델 · 최종 전사</span>
+      </div>
+    </div>
+
+    <div class="rl-chips">
+      <span class="rl-chip"><b>6</b>개 서브시스템</span>
+      <span class="rl-chip">온디바이스 <b>+</b> 클라우드 하이브리드 STT</span>
+      <span class="rl-chip">동시 <b>150</b> 세션 검증</span>
+      <span class="rl-chip">커스텀 한국어 ASR</span>
+      <span class="rl-chip"><b>vLLM</b> GPU 플릿</span>
+    </div>
+  </header>
+
+  <section class="rl-sec">
+    <span class="rl-eyebrow">Overview</span>
+    <h2 class="rl-h2">제품 하나로 현대 AI 엔지니어링의 전 계층을</h2>
+    <p class="rl-p"><strong>Relay</strong>는 회의를 캡처해 실시간 전사하고, 그 전사를 구조화된 검색 가능한 지식(진행 중 요약, 추출된 결정, 액션 아이템)으로 바꿉니다 — 네이티브 데스크톱 앱과 웹 플랫폼 양쪽에서.</p>
+    <p class="rl-p">흥미로운 지점은 <strong>범위의 폭</strong>입니다. 같은 제품이 클라이언트의 <strong>실시간 오디오 시스템</strong>, 클라우드의 <strong>비용 튜닝 GPU 서빙</strong>, 저자원 언어를 위한 <strong>전이학습 ASR 모델</strong>, <strong>프로덕션 웹 백엔드</strong>, 그리고 비정형 발화를 구조화하는 <strong>추론 계층</strong>을 모두 필요로 했고, 그 전부를 제가 맡았습니다. 아래는 그 아키텍처와 의사결정이며 — 제품/조직명·인프라 좌표·자격증명·비용 수치·고객 데이터는 제거했습니다.</p>
+  </section>
+
+  <section class="rl-sec">
+    <span class="rl-eyebrow">System Architecture</span>
+    <h2 class="rl-h2">한 문장의 발화가 구조화된 지식이 되기까지</h2>
+    <div class="rl-arch">
+      <div class="rl-row">
+        <div class="rl-node"><span class="t">Client · Tauri + Rust</span><h4>데스크톱 캡처</h4><p>마이크 + 시스템 오디오 이중 채널, VAD·노이즈 억제, 라이브 UI.</p></div>
+      </div>
+      <div class="rl-flow"><span>audio frames · f32 PCM 16kHz</span></div>
+      <div class="rl-row rl-c2">
+        <div class="rl-node"><span class="t">On-device</span><h4>실시간 STT (CTC)</h4><p>말하는 즉시 partial 미리보기 — 네트워크 왕복 없음.</p></div>
+        <div class="rl-node"><span class="t">Cloud</span><h4>최종 전사</h4><p>더 강한 모델이 발화별 확정 + 실시간 번역.</p></div>
+      </div>
+      <div class="rl-flow"><span>transcript stream</span></div>
+      <div class="rl-row rl-c3">
+        <div class="rl-node"><span class="t">vLLM · always-on</span><h4>요약 / 인텐트</h4><p>회의 중 진행 요약·인텐트 추출.</p></div>
+        <div class="rl-node"><span class="t">vLLM · scale-to-zero</span><h4>임베딩</h4><p>검색·동기화용 인덱스, idle 시 GPU 비용 0.</p></div>
+        <div class="rl-node"><span class="t">Engine</span><h4>지식그래프</h4><p>결정·액션·reversal 의 증분 사건 그래프.</p></div>
+      </div>
+      <div class="rl-flow"><span>persisted · served</span></div>
+      <div class="rl-row">
+        <div class="rl-node dash"><span class="t">Web · Django + React on ECS / CloudFront</span><h4>계정 · 워크스페이스 · 히스토리 · B2B · 어드민</h4><p>CDN 분리 뒤의 API-only 백엔드, 마이그레이션 경계를 지키는 아키텍처 테스트.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="rl-sec">
+    <span class="rl-eyebrow">Subsystems</span>
+    <h2 class="rl-h2">여섯 개의 빌드, 하나의 제품</h2>
+    <div class="rl-cards">
+
+      <article class="rl-card">
+        <div class="rl-card-top"><span class="rl-idx">01</span><h3>실시간 데스크톱 전사</h3></div>
+        <div class="rl-role">Tauri (Rust) · Next.js · 오디오 DSP · 스트리밍 ASR</div>
+        <p>회의를 녹음하며 실시간 전사하는 네이티브 앱. 핵심 난제는 지연 vs 정확도라, 파이프라인을 <strong>하이브리드</strong>로 설계했습니다 — 로컬 CTC 모델이 왕복 없이 partial 을, 더 강한 클라우드 모델이 발화별 최종 전사를 냅니다.</p>
+        <ul class="rl-dec">
+          <li><b>하이브리드 STT</b> — 온디바이스 partial + 클라우드 final 을 화해시켜 보이는 텍스트가 뒤로 덜컥 되돌아가지 않게.</li>
+          <li><b>채널 분리</b> — 마이크와 시스템 오디오를 독립 캡처·화자분리해 공유 콜에서도 "나 vs 상대"가 정확.</li>
+          <li><b>VAD + 노이즈 억제</b>를 인식기 앞단에 두어 낭비 추론과 헛 partial 감소.</li>
+          <li><b>단일 바이너리 배포</b> — 모델·ONNX 런타임을 빌드 시 번들, 테스터는 설치만.</li>
+        </ul>
+        <div class="rl-stack"><span class="rl-pill">Rust</span><span class="rl-pill">Tauri</span><span class="rl-pill">Next.js/React</span><span class="rl-pill">ONNX Runtime</span><span class="rl-pill">Parakeet CTC</span><span class="rl-pill">Pyannote VAD</span></div>
+      </article>
+
+      <article class="rl-card">
+        <div class="rl-card-top"><span class="rl-idx">02</span><h3>비용 튜닝 GPU 추론 플릿</h3></div>
+        <div class="rl-role">vLLM · serverless GPU · LLMOps · 배포 엔지니어링</div>
+        <p>요약/인텐트·임베딩·번역 세 서비스를 vLLM 으로 서빙. 질문은 "돌아가느냐"가 아니라 <strong>"idle 일 때 얼마가 나가느냐"</strong> 였습니다 — 워크로드마다 duty cycle 이 극단적으로 달라서, 그 차이를 토폴로지에 직접 새겼습니다.</p>
+        <div class="rl-topo">
+          <div class="rl-svc"><div class="n">요약 / 인텐트</div><div class="d">회의 중 실시간, 사용자가 대기.</div><span class="rl-state on">min 1 · always-on</span></div>
+          <div class="rl-svc"><div class="n">임베딩</div><div class="d">sparse 배치 동기화, idle ~99%.</div><span class="rl-state zero">min 0 · scale-to-zero</span></div>
+          <div class="rl-svc"><div class="n">번역</div><div class="d">사용 빈도 의존, duty cycle 로 결정.</div><span class="rl-state zero">min 0–1</span></div>
+        </div>
+        <ul class="rl-dec">
+          <li><b>지연을 체감하는 곳에만 과금</b> — 실시간 대기 서비스만 always-on, 나머지는 idle 시 GPU 반납.</li>
+          <li><b>Zero-rebuild 배포</b> — ~80GB 베이스라 시작 시 최신 코드를 pull 해 in-place 핫리로드, 실패 시 baked 이미지로 fallback.</li>
+          <li><b>가중치 이미지 baking</b> 으로 scale-to-zero cold start 를 분이 아닌 수십 초로.</li>
+          <li><b>계층 인증</b> — 플랫폼 API Key 1차 + 회전 내부 키 2차(무중단 회전 grace window).</li>
+          <li><b>Matryoshka 절단</b> — 같은 벡터를 클라이언트에서 앞 N차원만 잘라 온디바이스 인덱스 최대 4배 축소.</li>
+        </ul>
+        <div class="rl-stack"><span class="rl-pill">vLLM</span><span class="rl-pill">Serverless GPU</span><span class="rl-pill">Docker/BuildKit</span><span class="rl-pill">GitHub Actions</span><span class="rl-pill">CUDA</span></div>
+      </article>
+
+      <article class="rl-card">
+        <div class="rl-card-top"><span class="rl-idx">03</span><h3>커스텀 한국어 ASR (인코더 전이)</h3></div>
+        <div class="rl-role">NeMo · PyTorch Lightning · 전이학습 · speech</div>
+        <p>기성 인식이 한국어 회의엔 부족해서 직접 학습했습니다. 처음부터가 아니라 <strong>사전학습 영어 encoder 를 이식</strong>해 음향 표현을 공짜로 얻고, 데이터 예산은 언어 계층에 몰았습니다.</p>
+        <ul class="rl-dec">
+          <li><b>2단계 스케줄</b> — stage 1 encoder 고정(decoder + 새 tokenizer 만), stage 2 전체 unfreeze 후 낮은 LR fine-tune.</li>
+          <li><b>한국어 SentencePiece BPE</b> 토크나이저, CTC head 에 맞춘 vocab 크기.</li>
+          <li><b>상업적 사용 가능 공개 코퍼스</b>(Common Voice / FLEURS)를 단일 manifest 로 정규화.</li>
+          <li><b>Loanword 보존</b>을 명시적 eval 게이트로 — 영어 용어가 한글 음차되지 않게.</li>
+        </ul>
+        <div class="rl-stack"><span class="rl-pill">NVIDIA NeMo</span><span class="rl-pill">PyTorch Lightning</span><span class="rl-pill">SentencePiece</span><span class="rl-pill">CTC</span><span class="rl-pill">Mixed precision</span></div>
+      </article>
+
+      <article class="rl-card">
+        <div class="rl-card-top"><span class="rl-idx">04</span><h3>프로덕션 웹 플랫폼 &amp; 백엔드</h3></div>
+        <div class="rl-role">Django · DRF · Celery · React · AWS ECS / CloudFront</div>
+        <p>계정·워크스페이스·회의 히스토리·B2B 프로비저닝·어드민을 담당. 동시에 server-rendered 템플릿 → API+SPA 마이그레이션 중이었고, 이런 전환은 뭔가가 막지 않으면 조용히 되돌아갑니다.</p>
+        <ul class="rl-dec">
+          <li><b>아키텍처 테스트 = fitness function</b> — 레거시 템플릿 표면을 동결하고 HTML 렌더 새 페이지 추가를 금지해 API-only 경계 유지.</li>
+          <li><b>CDN/컴퓨트 분리를 로컬에서 리허설</b> — SPA 를 Django 와 별도 서빙해 프로덕션 분리를 흉내.</li>
+          <li><b>프로덕션과 같은 async</b> — Celery worker+beat 를 로컬에서도 실제 프로세스로.</li>
+          <li><b>멱등 B2B 일괄 프로비저닝</b> — CSV, dry-run, 팀 바인딩, 재설정 링크 export.</li>
+        </ul>
+        <div class="rl-stack"><span class="rl-pill">Django</span><span class="rl-pill">DRF</span><span class="rl-pill">Celery</span><span class="rl-pill">PostgreSQL</span><span class="rl-pill">Redis</span><span class="rl-pill">React/Vite</span><span class="rl-pill">AWS ECS</span><span class="rl-pill">CloudFront</span></div>
+      </article>
+
+      <article class="rl-card">
+        <div class="rl-card-top"><span class="rl-idx">05</span><h3>회의 지식그래프 엔진</h3></div>
+        <div class="rl-role">Applied LLM systems · 그래프 모델링 · Python</div>
+        <p>전사를 <em>쓸모 있게</em> 만드는 계층. 대화가 스트리밍되는 동안 <strong>사건·결정·액션·이슈</strong>의 증분 그래프를 만들고, 새 결정이 과거 결정을 <strong>뒤집는(reversal)</strong> 순간을 잡습니다. 원칙은 <strong>LLM 은 좁은 판단만, 구조는 결정론적 규칙</strong>.</p>
+        <ul class="rl-dec">
+          <li><b>LLM 은 좁은 판단, 코드가 구조</b> — 모델은 분류·매칭만, 새 사건으로 끊을지는 결정론적 cut 규칙.</li>
+          <li><b>값싼 기계적 prewhere</b> — 토큰 겹침으로 후보를 줄여 히스토리가 커져도 LLM 비용 상한 유지.</li>
+          <li><b>근거 있는 인과만</b> — caused-by 는 명시 단서에서만(환각 링크 방지).</li>
+          <li><b>reversal 자동 감지</b> — "말 바꾼 지점"을 자동 표면화.</li>
+        </ul>
+        <div class="rl-stack"><span class="rl-pill">Python</span><span class="rl-pill">LLM orchestration</span><span class="rl-pill">Graph model</span><span class="rl-pill">Deterministic rules</span></div>
+      </article>
+
+      <article class="rl-card">
+        <div class="rl-card-top"><span class="rl-idx">06</span><h3>인프라 &amp; 딜리버리</h3></div>
+        <div class="rl-role">IaC · CI/CD · 컨테이너 레지스트리</div>
+        <p>연결 조직 — 재현 가능한 IaC, 그리고 서비스 이미지를 QEMU 없이 x86 러너에서 빌드·배포하는 CI. 경로 필터로 바뀐 서비스만 재빌드합니다.</p>
+        <ul class="rl-dec">
+          <li><b>Infrastructure as Code</b> 로 재현·리뷰 가능한 환경 변경.</li>
+          <li><b>Path-filtered CI</b> — 바뀐 서비스만 재빌드, 큰 ML 이미지는 순차 빌드로 디스크 관리.</li>
+          <li><b>시크릿을 레이어 밖으로</b> — 모델 토큰을 BuildKit secret 으로 주입.</li>
+        </ul>
+        <div class="rl-stack"><span class="rl-pill">Infrastructure as Code</span><span class="rl-pill">GitHub Actions</span><span class="rl-pill">Container registry</span><span class="rl-pill">BuildKit secrets</span></div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="rl-sec">
+    <span class="rl-eyebrow">What this demonstrates</span>
+    <h2 class="rl-h2">그 아래에 깔린 엔지니어링 테마</h2>
+    <div class="rl-themes">
+      <div class="rl-theme"><h4>실시간 시스템</h4><p>라이브 오디오 파이프라인의 지연 vs 정확도 트레이드오프, 동시 150 세션 검증.</p></div>
+      <div class="rl-theme"><h4>LLMOps &amp; 비용 엔지니어링</h4><p>duty cycle 중심 GPU 토폴로지 — 사용자가 체감하는 곳에만 지연 비용 지불.</p></div>
+      <div class="rl-theme"><h4>부르는 게 아니라 학습하는 ML</h4><p>저자원 언어용 음성 모델을 단계별 freeze/fine-tune 으로 전이학습.</p></div>
+      <div class="rl-theme"><h4>풀스택 제품</h4><p>네이티브 데스크톱, React SPA, Django/DRF 백엔드, async 워커, 클라우드 배포까지.</p></div>
+      <div class="rl-theme"><h4>아키텍처 규율</h4><p>라이브 마이그레이션이 조용히 되돌아가지 않게 하는 fitness-function 테스트.</p></div>
+      <div class="rl-theme"><h4>실용적 AI</h4><p>판단은 LLM, 구조는 결정론적 규칙 — 모든 걸 모델에 맡기기보다 신뢰성 우선.</p></div>
+    </div>
+  </section>
+
+  <div class="rl-note">
+    <b>익명화 안내.</b> 제품·조직명, 인프라 식별자(endpoint, 이미지 레지스트리, IP 주소), 자격증명,
+    비용 수치, 고객 데이터는 제거·일반화했습니다. <b>"Relay"</b> 는 실제 제품명을 대신하는 자리표시자이며,
+    공개 모델·프레임워크명은 기밀이 아니라 기술적 사실을 보여주므로 그대로 두었습니다.
+  </div>
+
+  <a class="rl-back" href="{{ '/' | relative_url }}">← 홈으로</a>
+</div>
+
+<script>
+  (function () {
+    var canvas = document.getElementById('rl-wave');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = 0, h = 0;
+
+    function accent() {
+      var probe = canvas.parentElement;
+      var c = getComputedStyle(probe).getPropertyValue('--rl-accent');
+      return (c && c.trim()) || '#5a6fd6';
+    }
+    function resize() {
+      w = canvas.clientWidth; h = canvas.clientHeight;
+      canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    function roundRect(c, x, y, ww, hh, r) {
+      r = Math.min(r, ww / 2, hh / 2);
+      c.beginPath(); c.moveTo(x + r, y);
+      c.arcTo(x + ww, y, x + ww, y + hh, r); c.arcTo(x + ww, y + hh, x, y + hh, r);
+      c.arcTo(x, y + hh, x, y, r); c.arcTo(x, y, x + ww, y, r); c.closePath();
+    }
+    var bars = 88;
+    function draw(t) {
+      ctx.clearRect(0, 0, w, h);
+      var mid = h / 2, gap = w / bars, bw = Math.max(2, gap * 0.5), a = accent();
+      for (var i = 0; i < bars; i++) {
+        var x = i * gap + gap / 2;
+        var env = Math.pow(Math.sin((i / bars) * Math.PI), 0.7);
+        var phase = t * 0.0022;
+        var s = Math.sin(i * 0.35 + phase) * 0.6 + Math.sin(i * 0.11 - phase * 1.7) * 0.4 + Math.sin(i * 0.9 + phase * 0.6) * 0.25;
+        var amp = (0.18 + 0.82 * ((s + 1.25) / 2.5)) * env;
+        var bh = Math.max(2, amp * (h * 0.9));
+        ctx.fillStyle = a; ctx.globalAlpha = 0.32 + 0.55 * env;
+        roundRect(ctx, x - bw / 2, mid - bh / 2, bw, bh, bw / 2); ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    }
+    var raf = null, start = null;
+    function frame(ts) { if (start == null) start = ts; draw(ts - start); raf = requestAnimationFrame(frame); }
+    function init() {
+      resize();
+      if (reduce) { draw(1200); return; }
+      if (raf) cancelAnimationFrame(raf); start = null; raf = requestAnimationFrame(frame);
+    }
+    var to;
+    window.addEventListener('resize', function () { clearTimeout(to); to = setTimeout(function () { resize(); if (reduce) draw(1200); }, 120); });
+    init();
+
+    var els = document.querySelectorAll('.rl-card, .rl-theme, .rl-node');
+    els.forEach(function (el) { el.classList.add('rl-reveal'); });
+    if ('IntersectionObserver' in window && !reduce) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.12 });
+      els.forEach(function (el) { io.observe(el); });
+    } else { els.forEach(function (el) { el.classList.add('in'); }); }
+  })();
+</script>

@@ -27,8 +27,11 @@ title: Home
         {% if project.status %}
         <p><strong>Status:</strong> {{ project.status }}</p>
         {% endif %}
+        {% if project.case_study_url %}
+        <a href="{{ project.case_study_url | relative_url }}" class="btn">케이스 스터디 →</a>
+        {% endif %}
         {% if project.github_url %}
-        <a href="{{ project.github_url }}" class="btn" target="_blank">View on GitHub</a>
+        <a href="{{ project.github_url }}" class="btn btn-secondary" target="_blank">View on GitHub</a>
         {% endif %}
         {% if project.github_url_ko %}
         <a href="{{ project.github_url_ko }}" class="btn btn-secondary" target="_blank">한국어 문서</a>
@@ -60,22 +63,33 @@ title: Home
 <div class="section">
     <h2>About</h2>
     <p>
-        Welcome to my project showcase! I'm passionate about building practical, open-source solutions
-        with a focus on minimalism and user experience. My projects aim to solve real-world problems
-        while maintaining clean, maintainable code.
+        안녕하세요, <strong>김조민 (Jomin Kim)</strong> 입니다. 실시간 음성 AI 제품을 데스크톱 클라이언트부터
+        GPU 추론 백엔드, 커스텀 ASR 모델, 웹 플랫폼, 지식그래프 엔진까지 <strong>전 계층을 혼자서</strong>
+        설계·구현했습니다. 지연·비용·신뢰성 같은 실제 제약 아래에서 동작하는 시스템을 만드는 데 관심이 많습니다.
     </p>
     <p style="margin-top: 1rem;">
-        <strong>Areas of Interest:</strong> System Administration, DevOps, Linux, Open Source, Automation
+        I build AI products end to end — real-time speech systems, cost-tuned GPU serving, model training,
+        full-stack web, and applied-LLM reasoning — from on-device inference to production cloud infrastructure.
+    </p>
+    <p style="margin-top: 1rem;">
+        <strong>관심 분야 / Focus:</strong> Real-time Speech AI, LLMOps &amp; GPU Serving, ML Training,
+        Full-stack (Rust/Tauri · Django · React), Cloud Infrastructure &amp; DevOps
     </p>
 </div>
 
 <div class="section">
     <h2>Get in Touch</h2>
     <p>
-        Interested in collaborating or have questions about my projects? Feel free to reach out!
+        협업이나 채용 관련 문의는 언제든 편하게 연락 주세요. Feel free to reach out.
+    </p>
+    <p style="margin-top: 1rem;">
+        <strong>Email:</strong>
+        <a href="mailto:jomin96@gmail.com">jomin96@gmail.com</a> ·
+        <a href="mailto:lumia82015@live.com">lumia82015@live.com</a> ·
+        <a href="mailto:21ghzx86@naver.com">21ghzx86@naver.com</a>
     </p>
     <div style="margin-top: 1rem;">
-        <a href="https://github.com/PrizmCaptCore" class="btn" target="_blank">GitHub Profile</a>
-        <a href="https://www.linkedin.com/in/jomin-kim-643870126/" class="btn" target="_blank">LinkedIn</a>
+        <a href="https://github.com/PrizmCaptCore" class="btn" target="_blank">GitHub</a>
+        <a href="https://www.linkedin.com/in/jomin-kim-643870126/" class="btn btn-secondary" target="_blank">LinkedIn</a>
     </div>
 </div>

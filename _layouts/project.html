@@ -31,8 +31,11 @@ layout: default
         {% endif %}
 
         <div style="margin-top: 2rem;">
+            {% if page.case_study_url %}
+            <a href="{{ page.case_study_url | relative_url }}" class="btn">케이스 스터디 보기 →</a>
+            {% endif %}
             {% if page.github_url %}
-            <a href="{{ page.github_url }}" class="btn" target="_blank">View on GitHub</a>
+            <a href="{{ page.github_url }}" class="btn btn-secondary" target="_blank">View on GitHub</a>
             {% endif %}
             {% if page.github_url_ko %}
             <a href="{{ page.github_url_ko }}" class="btn btn-secondary" target="_blank">한국어 문서</a>
