@@ -3,8 +3,43 @@ layout: default
 title: Home
 ---
 
+<div class="section" id="intro">
+    <h2>소개 · About</h2>
+    <p>
+        안녕하세요, <strong>김조민 (Jomin Kim)</strong> 입니다. 실시간 음성 AI 제품을 데스크톱 클라이언트부터
+        GPU 추론 백엔드, 커스텀 ASR 모델, 웹 플랫폼, 지식그래프 엔진까지 <strong>전 계층을 혼자서</strong>
+        설계·구현했고, 그 위에 프로덕션 MLOps·클라우드 인프라 경험을 함께 쌓았습니다. 지연·비용·신뢰성 같은
+        <strong>실제 제약 아래에서 동작하는 시스템</strong>을 만드는 데 관심이 많습니다.
+    </p>
+    <p style="margin-top: 1rem;">
+        I'm an engineer who builds AI products end to end — real-time speech systems, cost-tuned GPU serving,
+        model training, full-stack web, and applied-LLM reasoning — from on-device inference to production
+        cloud infrastructure.
+    </p>
+
+    <p style="margin-top: 1.5rem;"><strong>핵심 역량 · Skills</strong></p>
+    <div class="tags">
+        <span class="tag">Real-time Speech AI</span>
+        <span class="tag">LLMOps · vLLM</span>
+        <span class="tag">ML Training (ASR)</span>
+        <span class="tag">Applied LLM Systems</span>
+        <span class="tag">Rust / Tauri</span>
+        <span class="tag">Django · DRF · React</span>
+        <span class="tag">AWS · ECS · Kubernetes</span>
+        <span class="tag">Terraform · Docker · CI/CD</span>
+    </div>
+
+    <div style="margin-top: 1.5rem;">
+        <a href="{{ '/relay/' | relative_url }}" class="btn">대표 프로젝트: Relay 케이스 스터디 →</a>
+        <a href="https://github.com/PrizmCaptCore/portfolio" class="btn btn-secondary" target="_blank">코드 포트폴리오 (GitHub)</a>
+    </div>
+</div>
+
 <div class="section">
-    <h2>Featured Projects</h2>
+    <h2>대표 프로젝트 · Selected Work</h2>
+    <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+        AI 제품 엔지니어링부터 인프라·오픈소스까지. 아래는 대표 작업들입니다.
+    </p>
 
     {% assign sorted_projects = site.projects | sort: 'order' %}
     {% for project in sorted_projects %}
@@ -58,23 +93,6 @@ title: Home
     {% else %}
     <p>No blog posts yet. Check back soon!</p>
     {% endif %}
-</div>
-
-<div class="section">
-    <h2>About</h2>
-    <p>
-        안녕하세요, <strong>김조민 (Jomin Kim)</strong> 입니다. 실시간 음성 AI 제품을 데스크톱 클라이언트부터
-        GPU 추론 백엔드, 커스텀 ASR 모델, 웹 플랫폼, 지식그래프 엔진까지 <strong>전 계층을 혼자서</strong>
-        설계·구현했습니다. 지연·비용·신뢰성 같은 실제 제약 아래에서 동작하는 시스템을 만드는 데 관심이 많습니다.
-    </p>
-    <p style="margin-top: 1rem;">
-        I build AI products end to end — real-time speech systems, cost-tuned GPU serving, model training,
-        full-stack web, and applied-LLM reasoning — from on-device inference to production cloud infrastructure.
-    </p>
-    <p style="margin-top: 1rem;">
-        <strong>관심 분야 / Focus:</strong> Real-time Speech AI, LLMOps &amp; GPU Serving, ML Training,
-        Full-stack (Rust/Tauri · Django · React), Cloud Infrastructure &amp; DevOps
-    </p>
 </div>
 
 <div class="section">

@@ -8,7 +8,7 @@ tags:
 tech_stack: "Wine, Shell Scripting, Arch Linux"
 status: "Active Development 🟢"
 github_url: "https://github.com/PrizmCaptCore/run_neople_game_on_linux"
-order: 2
+order: 3
 ---
 
 A handler to run Neople games (such as Dungeon Fighter Online and Cyphers) on Linux systems through Wine.
