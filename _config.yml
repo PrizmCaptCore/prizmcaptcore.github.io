@@ -17,6 +17,7 @@ plugins:
 exclude:
   - Gemfile
   - Gemfile.lock
+  - index.html.backup
   - node_modules
   - vendor/bundle/
   - vendor/cache/

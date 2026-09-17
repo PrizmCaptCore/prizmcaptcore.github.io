@@ -12,12 +12,12 @@ I'm excited to announce that I'm now more active on LinkedIn! If you're interest
 
 ## About Me
 
-I'm passionate about system administration, DevOps, and building practical open-source solutions. Currently working on projects like PRIZM NAS OS, which focuses on minimalist, user-friendly Linux-based systems.
+I focus on system administration, DevOps, and practical engineering. Code examples and architecture notes are collected in my public [portfolio](https://github.com/PrizmCaptCore/portfolio).
 
 ## What I Share on LinkedIn
 
 - **Technical Insights**: Tips and experiences from working with Linux and system administration
-- **Project Updates**: Progress on my open-source projects
+- **Project Updates**: Selected code examples and architecture notes from my public portfolio
 - **Industry Trends**: Thoughts on DevOps, automation, and infrastructure
 - **Learning Journey**: What I'm exploring and experimenting with
 

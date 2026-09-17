@@ -4,9 +4,9 @@ Personal project showcase and blog hosted on GitHub Pages.
 
 🌐 **Live Site**: https://prizmcaptcore.github.io
 
-## Projects Featured
+## Public Portfolio
 
-- **PRIZM NAS OS** - Minimalist Arch Linux-based NAS operating system
+- **[Engineering Portfolio](https://github.com/PrizmCaptCore/portfolio)** - AI products, MLOps, cloud infrastructure, and healthcare systems, with a Relay case study.
 
 ## Local Development
 

@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Projects
+title: Portfolio
 ---
 
 <div class="section">
-    <h2>All Projects</h2>
+    <h2>공개 코드 포트폴리오 · Portfolio</h2>
 
     {% assign sorted_projects = site.projects | sort: 'order' %}
     {% for project in sorted_projects %}
@@ -27,7 +27,8 @@ title: Projects
         {% if project.status %}
         <p><strong>Status:</strong> {{ project.status }}</p>
         {% endif %}
-        <a href="{{ project.url | relative_url }}" class="btn">View Details →</a>
+        <a href="{{ project.github_url }}" class="btn" target="_blank">View on GitHub</a>
+        <a href="{{ project.url | relative_url }}" class="btn btn-secondary">View Details →</a>
     </div>
     {% endfor %}
 </div>
