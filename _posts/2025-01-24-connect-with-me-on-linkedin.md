@@ -23,7 +23,7 @@ I focus on system administration, DevOps, and practical engineering. Code exampl
 
 ## Let's Connect!
 
-You can find me on LinkedIn here: [linkedin.com/in/jomin-kim-643870126](https://www.linkedin.com/in/jomin-kim-643870126/)
+You can find me on LinkedIn here: [linkedin.com/in/jomin-kim-a8aa80427/](https://www.linkedin.com/in/jomin-kim-a8aa80427/)
 
 I'm always open to:
 - Networking with fellow developers and system administrators
